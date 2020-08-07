@@ -25,7 +25,7 @@
     </div>
     <div class="row">
         <div class="col-9">
-            @foreach ($mangasAtualizados as $item)
+            @foreach ($mangas as $item)
             <div class="card" style="width: 18rem; text-align: center">
                 <div class="img">
                   <img class="card-img-top" src="{{Storage::url($item->imagem)}}" alt="Card image cap">
@@ -35,7 +35,7 @@
                     <div class="card-text">
                         {{$item->descricao}} 
                     </div>
-                    <a href="{{route('manga')}}/{{$item->nome}}" class="btn btn-primary">Ler</a>
+                    <a href="manga/{{$item->nome}}" class="btn btn-primary">Ler</a>
                 </div>
             </div>
             @endforeach
@@ -46,5 +46,10 @@
             </div>    
         </div>
     </div>    
+    <div class="row">
+      <div class="col-9 centro">
+          {{$mangas->links()}}
+      </div>
+    </div>
 </div>
 @endsection

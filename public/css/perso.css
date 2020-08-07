@@ -1,3 +1,4 @@
+/* layout inicio*/ 
 .usuario {
     color: #176b0f !important;
     font-weight: bold;
@@ -39,8 +40,71 @@ form textarea {
     max-width: 400px;
 }
 
+form select {
+    max-width: 400px;
+}
+
 div.img {
     height: 150px;
     text-align: center;
     overflow: hidden;
+}
+
+div.col-9.centro {
+    display: block;
+    align-self: center;
+}
+
+div.col-9 nav{
+    text-align: center;
+}
+
+nav ul.pagination {
+    text-align: center !important;
+    align-content: center;
+    display: block;
+}
+
+nav ul.pagination li {
+    display: inline-block;
+    align-self: center;
+}
+
+/* fim de layout inicio*/
+
+/* Manga pagina*/
+
+div.header {
+    display: block;
+}
+
+div.imagem {
+    height: 300px;
+    display: inline-block;
+    width: fit-content;
+}
+
+img.capa {
+    height: 300px;
+    border-radius: 10px;
+}
+
+div.manga-titulo {
+    position: absolute;
+    top: 0;
+    margin-left: 20px;
+    display: inline;
+    font-size: 31px;
+}
+
+div.manga-descricao {
+    position: absolute;
+    top: 100px;
+    margin-left: 20px;
+    display: inline;
+    font-size: 31px;
+}
+
+div.col-12.cap h3 {
+    text-align: center;
 }

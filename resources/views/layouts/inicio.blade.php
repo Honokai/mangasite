@@ -5,11 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Mangas</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/perso.css">
-    <script src="js/jquery-3.2.1.slim.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{{route('inicio')}}/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{route('inicio')}}/css/perso.css">
+    <script src="{{route('inicio')}}/js/jquery-3.2.1.slim.min.js"></script>
+    <script src="{{route('inicio')}}/js/popper.min.js"></script>
+    <script src="{{route('inicio')}}/js/bootstrap.min.js"></script>
+    @if (Route::currentRouteName() == 'painel')
+        <link rel="stylesheet" href="{{route('inicio')}}/css/select2.min.css">
+        <script src="{{route('inicio')}}/js/select2.min.js"></script>
+        <script src="{{route('inicio')}}/js/perso.js"></script>
+    @endif
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">

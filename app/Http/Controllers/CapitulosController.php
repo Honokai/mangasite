@@ -3,10 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\Capitulos;
+use App\Imagens;
+use App\Mangas;
+use Facade\FlareClient\Stacktrace\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use PhpParser\Node\Expr\Cast\Array_;
 
 class CapitulosController extends Controller
 {
+    
+    public function painel()
+    {
+        if(Auth::user()->acesso == 1) {
+            
+            $mangas = Mangas::all();
+            
+            return view('painel',['mangas'=>$mangas]);
+
+        } else {
+            return view('inicio');
+        }
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -35,7 +57,59 @@ class CapitulosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $regras = [
+            'nome' => 'required',
+            'imagem' => 'image|mimes:jpeg,bmp,png|size:2000'
+        ];
+
+        $validador = Validator::make($request->imagem, $regras);
+
+        if($validador->fails()){
+
+            return back()->withErrors($validador);
+
+        }
+
+        $capitulo = new Capitulos;
+        $capitulo->nome = $request->nome;
+        $capitulo->idManga = $request->manga;
+        $capitulo->save();
+        $nome = Mangas::find($request->manga);
+        $nome = str_replace(' ', '', $nome->nome);
+        if($capitulo->save()) {
+            
+            if(Storage::disk('public')->makeDirectory('mangas/'.$nome)){}
+            
+            if(Storage::disk('public')
+            ->makeDirectory('mangas/'.$nome.'/'.$request->nome)){}
+            
+            $this->upload($request->imagem,$request->nome,$nome,$request->manga,$capitulo->id);
+            
+            return view('painel',['numero'=>$request->file('imagem')]);
+
+        } else {
+
+            return back()->with('erro','Algo errado tomou lugar do processo.');
+
+        }
+    }
+
+    /**
+     * Função para realizar o carregamento de multiplas imagens
+     * @param String $nome
+     */
+    public function upload(Array $arquivos,String $capituloNome, String $mangaNome,Int $mangaID, Int $capituloID){
+        $numero = 1;
+        foreach($arquivos as $imagem){
+            $imagens = new Imagens;        
+            $imagem->storeAs('mangas/'.$mangaNome.'/'.$capituloNome, "/imagem{$numero}.jpg", 'public');
+            $imagens->local = 'mangas/'.$mangaNome.'/'.$capituloNome."/imagem{$numero}.jpg";
+            $imagens->idManga = $mangaID;
+            $imagens->idCapitulo = $capituloID;
+            $imagens->save();
+            $numero++;
+        }
+
     }
 
     /**

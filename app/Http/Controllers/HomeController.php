@@ -27,12 +27,4 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function painel()
-    {
-        if(Auth::user()->acesso == 1) {
-            return view('painel');
-        } else {
-            return view('inicio');
-        }
-    }
 }

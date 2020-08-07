@@ -14,17 +14,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('inicio')->with('mangasAtualizados',Mangas::all()->sortByDesc('atualizado_em'));
-})->name('inicio');
-
-
+Route::get('/', 'MangasController@index')->name('inicio');
+/*
+function () {
+    return view('inicio')->with('paginacao','MangasController@index');
+}
+*/
 Auth::routes();
 
-Route::get('/manga')->name('manga');
+Route::get('manga/{nome}', 'MangasController@show')->name('manga');
 
 Route::post('/adicionar_manga', 'MangasController@store')->name('am');
 
-Route::get('/painel', 'HomeController@painel')->name('painel');
+Route::post('/adicionar_capitulo', 'CapitulosController@store')->name('adicionar capitulo');
+
+Route::get('/painel', 'CapitulosController@painel')->name('painel');
 
 Route::get('/home', 'HomeController@index')->name('home');

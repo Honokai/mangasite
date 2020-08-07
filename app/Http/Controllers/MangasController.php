@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Capitulos;
 use App\Mangas;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Console\Input\Input;
 
@@ -17,7 +19,11 @@ class MangasController extends Controller
      */
     public function index()
     {
-        //
+        /* */
+        $paginacao = Mangas::orderByDesc('atualizado_em')->paginate(9); 
+        //$paginacao = DB::table('mangas')->orderByDesc('atualizado_em')->paginate(0);
+        return view('inicio',['mangas' => $paginacao]);
+
     }
 
     /**
@@ -79,9 +85,14 @@ class MangasController extends Controller
      * @param  \App\Mangas  $mangas
      * @return \Illuminate\Http\Response
      */
-    public function show(Mangas $mangas)
+    public function show($nome)
     {
-        //
+        
+        $manga = Mangas::where('nome', '=', $nome)->first();
+
+        $capitulos = Capitulos::where('idManga', $manga->id);
+
+        return view('manga',['manga'=>$manga, 'capitulos'=>$capitulos]);
     }
 
     /**
