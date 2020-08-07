@@ -1,0 +1,46 @@
+.usuario {
+    color: #176b0f !important;
+    font-weight: bold;
+}
+
+div.conteudo div.card {
+    float: left;
+}
+
+.carousel {
+    height: 300px;
+    margin-bottom: 15px;
+}
+
+.carousel-item img {
+    height: 300px;
+    width: auto;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: contain;
+    border-radius: 10px;
+}
+
+.card {
+    margin: 5px;
+}
+
+div.card-text {
+    height: 70px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+form input {
+    max-width: 400px;
+}
+
+form textarea {
+    max-width: 400px;
+}
+
+div.img {
+    height: 150px;
+    text-align: center;
+    overflow: hidden;
+}

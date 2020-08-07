@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
+
+body {
+    font-family: 'Ubuntu';
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+.bg-dark {
+    background-color: rgba(70, 56, 148, 0.5) !important;
+}
+
+div > div.carousel-item.active > img {
+    max-height: 200px !important;
+}
+
+nav.menu {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.544);
+    box-shadow: 1px 5px 5px rgba(0, 0, 0, 0.544);
+}
+
+nav.menu > div.item-direita {
+    float: left;
+    width: 50%;
+    text-align: right;
+}
+
+nav.menu > div.item-direita > ul.links {
+    margin-right: 20px;
+}
+
+nav.menu > div.item-esquerda {
+    float: left;
+    width: 50%;
+    text-align: left;
+}
+
+nav.menu > div.item-esquerda > ul.links {
+    margin-left: 20px;
+}
+
+ul {
+    padding-inline-start: 0;
+}
+
+ul li {
+    list-style: none;
+    display: inline-block;
+}
+
+ul.links li a {
+    text-decoration: none;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    border-radius: 20px;
+    
+}
+
+ul.links li a:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+    color: black;
+    box-shadow: 1px 1px 3px rgba(255, 255, 255, 0.7), -1px -1px 3px rgba(255, 255, 255, 0.7), -1px 1px 3px rgba(255, 255, 255, 0.7), 1px -1px 3px rgba(255, 255, 255, 0.7);
+}
+
+.cover {
+    background-image: url("../img/night.jpeg");
+    z-index: -1;
+    position: relative;
+    display: block;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    height: 500px;
+    text-align: center;
+}
+
+div.imagem-front {
+    z-index: -1;
+    position: relative;
+    display: block;
+    background-image: url('../img/front.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    height: 200px;
+    text-align: center;
+}
+
+div.content {
+    background: black;
+    min-height: 500px;
+    color: white;
+    text-align: center;
+}
+
+div.cover div.anymesg {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 50%;
+}
+
+div.cover div.anymesg div.box-center {
+    padding: 10px;
+    border-radius: 5px;
+    display: inline;
+    background-color: rgba(253, 253, 253, 0.644);
+    z-index: 1;
+}
+
+div.cover div.camada { /*camada para escurecer imagem*/ 
+    z-index: 0;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.342);
+}
