@@ -23,9 +23,9 @@
                         <input id="imagem" name="imagem" class="form-control-file" type="file" placeholder="Ex.: As crônicas de matsuri">
                     </div>
                     <div class="form-group">
-                        <label for="nome">Nome do manga:</label>
-                        <input id="nome" name="nome" class="form-control @error('nome') is-invalid @enderror" value="{{ old('nome') }}"  type="text" placeholder="Ex.: As crônicas de matsuri">
-                        @error('nome')
+                        <label for="nomemanga">Nome do manga:</label>
+                        <input id="nomemanga" name="nomemanga" class="form-control @error('nomemanga') is-invalid @enderror" value="{{ old('nomemanga') }}"  type="text" placeholder="Ex.: As crônicas de matsuri">
+                        @error('nomemanga')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

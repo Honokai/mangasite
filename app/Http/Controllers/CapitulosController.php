@@ -58,17 +58,8 @@ class CapitulosController extends Controller
     public function store(Request $request)
     {
         $regras = [
-            'nome' => 'required',
-            'imagem' => 'image|mimes:jpeg,bmp,png|size:2000'
+            'nome' => 'required'
         ];
-
-        $validador = Validator::make($request->imagem, $regras);
-
-        if($validador->fails()){
-
-            return back()->withErrors($validador);
-
-        }
 
         $capitulo = new Capitulos;
         $capitulo->nome = $request->nome;
@@ -83,7 +74,13 @@ class CapitulosController extends Controller
             if(Storage::disk('public')
             ->makeDirectory('mangas/'.$nome.'/'.$request->nome)){}
             
-            $this->upload($request->imagem,$request->nome,$nome,$request->manga,$capitulo->id);
+            $validador = Validator::make($request->all(),$this->upload($request->imagem,$request->nome,$nome,$request->manga,$capitulo->id,$regras)) ;
+
+            if($validador->fails()){
+    
+                return back()->withErrors($validador);
+    
+            }
             
             return view('painel',['numero'=>$request->file('imagem')]);
 
@@ -98,9 +95,11 @@ class CapitulosController extends Controller
      * Função para realizar o carregamento de multiplas imagens
      * @param String $nome
      */
-    public function upload(Array $arquivos,String $capituloNome, String $mangaNome,Int $mangaID, Int $capituloID){
+    public function upload(Array $arquivos,String $capituloNome, String $mangaNome,Int $mangaID, Int $capituloID, Array $regras){
         $numero = 1;
         foreach($arquivos as $imagem){
+            $regras['imagem.' . $imagem] = 'image|mimes:jpeg,bmp,png|size:2000';
+
             $imagens = new Imagens;        
             $imagem->storeAs('mangas/'.$mangaNome.'/'.$capituloNome, "/imagem{$numero}.jpg", 'public');
             $imagens->local = 'mangas/'.$mangaNome.'/'.$capituloNome."/imagem{$numero}.jpg";
@@ -108,6 +107,9 @@ class CapitulosController extends Controller
             $imagens->idCapitulo = $capituloID;
             $imagens->save();
             $numero++;
+            
+
+            return $regras;
         }
 
     }
