@@ -60,6 +60,22 @@ class CapitulosController extends Controller
         $regras = [
             'nome' => 'required'
         ];
+        
+        if($request->hasFile('imagem')){
+            foreach($request->imagem as $imagem){
+                $regras['imagem.' . $imagem->getClientOriginalName()] = 'required|image|mimes:jpeg,png|size:2000';
+            }
+        } else {
+
+        }
+        
+        $validador = Validator::make($request->all(), $regras);
+
+        if($validador->fails()){
+
+            return back()->withInput()->withErrors($validador);
+
+        }
 
         $capitulo = new Capitulos;
         $capitulo->nome = $request->nome;
@@ -67,26 +83,25 @@ class CapitulosController extends Controller
         $capitulo->save();
         $nome = Mangas::find($request->manga);
         $nome = str_replace(' ', '', $nome->nome);
+
         if($capitulo->save()) {
             
-            if(Storage::disk('public')->makeDirectory('mangas/'.$nome)){}
+            if(Storage::disk('public')->makeDirectory('mangas/'.$nome)) {}
             
-            if(Storage::disk('public')
-            ->makeDirectory('mangas/'.$nome.'/'.$request->nome)){}
+            if(Storage::disk('public')->
+            makeDirectory('mangas/'.$nome.'/'.$request->nome)) {}
             
-            $validador = Validator::make($request->all(),$this->upload($request->imagem,$request->nome,$nome,$request->manga,$capitulo->id,$regras)) ;
-
-            if($validador->fails()){
-    
-                return back()->withErrors($validador);
-    
+            if($this->upload($request->imagem,$request->nome,$nome,$request->manga,$capitulo->id,$regras)){
+                return back();    
+            } else {
+                DB::delete('delete capitulos where id = ?', $capitulo->id);
             }
             
-            return view('painel',['numero'=>$request->file('imagem')]);
+            
 
         } else {
 
-            return back()->with('erro','Algo errado tomou lugar do processo.');
+            return back()->withInput()->with('erro','Algo deu errado');
 
         }
     }
@@ -95,23 +110,25 @@ class CapitulosController extends Controller
      * Função para realizar o carregamento de multiplas imagens
      * @param String $nome
      */
-    public function upload(Array $arquivos,String $capituloNome, String $mangaNome,Int $mangaID, Int $capituloID, Array $regras){
+    public function upload(Array $arquivos,String $capituloNome, String $mangaNome,Int $mangaID, Int $capituloID){
         $numero = 1;
         foreach($arquivos as $imagem){
-            $regras['imagem.' . $imagem] = 'image|mimes:jpeg,bmp,png|size:2000';
 
             $imagens = new Imagens;        
             $imagem->storeAs('mangas/'.$mangaNome.'/'.$capituloNome, "/imagem{$numero}.jpg", 'public');
             $imagens->local = 'mangas/'.$mangaNome.'/'.$capituloNome."/imagem{$numero}.jpg";
             $imagens->idManga = $mangaID;
             $imagens->idCapitulo = $capituloID;
-            $imagens->save();
+            try {
+                $imagens->save();
+            } catch (\Throwable $th) {
+                return False;
+            }
             $numero++;
             
-
-            return $regras;
         }
 
+        return True;
     }
 
     /**

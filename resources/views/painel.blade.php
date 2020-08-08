@@ -16,6 +16,7 @@
 
             <div class="col-9" >
                 <form action="{{route('am')}}" method="POST" enctype="multipart/form-data">
+                    
                     <h2>Adicionar manga</h2>
                     @csrf
                     <div class="form-group">
@@ -61,6 +62,7 @@
                     </div>
                 
                     <div class="form-group">
+                        
                         <label for="imagem">Imagens do capítulo:</label>
                         <input id="imagem" name="imagem[]" class="form-control-file @error('imagem') is-invalid @enderror" value="{{ old('imagem') }}" type="file" multiple='multiple'>
                         @error('imagem')
