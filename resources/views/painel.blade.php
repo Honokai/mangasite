@@ -1,6 +1,7 @@
 @extends('layouts.inicio')
 
 @section('conteudo')
+
     <div class="conteudo">
         <div class="row">
             <div class="col-3">
@@ -19,6 +20,7 @@
                     
                     <h2>Adicionar manga</h2>
                     @csrf
+
                     <div class="form-group">
                         <label for="imagem">Imagem de capa:</label>
                         <input id="imagem" name="imagem" class="form-control-file" type="file" placeholder="Ex.: As crônicas de matsuri">
@@ -32,7 +34,6 @@
                             </span>
                         @enderror
                     </div>
-
                     
                     <div class="form-group">
                         <label for="descricao">Descrição</label>
@@ -48,6 +49,12 @@
                 </form>
 
                 <form action="{{route('adicionar capitulo')}}" method="POST" enctype="multipart/form-data">
+                    
+                    @error('Falha')
+                        <span class="invalid-feedback" role="alert" style="display: block">
+                            <h3> {{ $message }} </h3>
+                        </span>
+                    @enderror
                     <h2>Adicionar capítulo</h2>
                     @csrf
                     <div class="form-group">
@@ -60,17 +67,31 @@
                             @endisset
                         </select>
                     </div>
-                
+                    @error('resposta')
+                        <span class="invalid-feedback" role="alert" style="display: block">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+
+                    
                     <div class="form-group">
-                        
                         <label for="imagem">Imagens do capítulo:</label>
-                        <input id="imagem" name="imagem[]" class="form-control-file @error('imagem') is-invalid @enderror" value="{{ old('imagem') }}" type="file" multiple='multiple'>
-                        @error('imagem')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                        <input id="imagem" name="imagem[]" class="form-control-file @error('imagem') is-invalid @enderror" value="{{ old('imagem[]') }}" type="file" multiple='multiple'>
+                        @foreach ($errors->get('imagem.*') as $message)
+                            @if (is_array($message))
+                                @foreach ($message as $item)
+                                    <span class="invalid-feedback" role="alert" style="display: block">
+                                        <strong>{{ $item }}</strong>
+                                    </span>
+                                @endforeach
+                            @else
+                                <span class="invalid-feedback" role="alert" style="display: block">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @endif
+                        @endforeach
                     </div>
+
                     <div class="form-group">
                         <label for="nome">Nome do capítulo:</label>
                         <input id="nome" name="nome" class="form-control @error('nome') is-invalid @enderror" value="{{ old('nome') }}"  type="text" placeholder="Ex.: As crônicas de matsuri">
@@ -92,8 +113,10 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary">Adicionar capitulo</button>
+
                 </form>
             </div>
         </div>    
     </div>
+    
 @endsection

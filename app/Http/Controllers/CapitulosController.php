@@ -9,6 +9,7 @@ use Facade\FlareClient\Stacktrace\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use PhpParser\Node\Expr\Cast\Array_;
@@ -57,15 +58,24 @@ class CapitulosController extends Controller
      */
     public function store(Request $request)
     {
-        $regras = [
-            'nome' => 'required'
-        ];
         
+
+        //$validar = $request->validate(['nome'=>'required','imagem'=>'image|mimes:png,jpeg']);
+
+        /*verifica se tem imagem caso contrario volta a pagina anterior com mensagem de erro*/
         if($request->hasFile('imagem')){
-            foreach($request->imagem as $imagem){
-                $regras['imagem.' . $imagem->getClientOriginalName()] = 'required|image|mimes:jpeg,png|size:2000';
-            }
+            /*foreach($request->imagem as $imagem){
+
+                array_push($regras['imagem.'.$imagem] = 'required|image|mimes:jpeg,png');
+
+            }*/
+            $regras = [
+                'nome' => 'required',
+                'imagem.*' => 'required|image|mimes:jpeg,png'
+            ];
         } else {
+
+            return back()->withInput()->withErrors(['Falha'=>'Imagens do capítulo não anexadas.']);
 
         }
         
@@ -91,10 +101,15 @@ class CapitulosController extends Controller
             if(Storage::disk('public')->
             makeDirectory('mangas/'.$nome.'/'.$request->nome)) {}
             
-            if($this->upload($request->imagem,$request->nome,$nome,$request->manga,$capitulo->id,$regras)){
-                return back();    
+            if($request->hasFile('imagem')) {
+                if($this->upload($request->imagem,$request->nome,$nome,$request->manga,$capitulo->id)){
+                    return back();    
+                } else {
+                    DB::delete('delete capitulos where id = ?', $capitulo->id);
+                    return back()->withErrors(['Falha', 'Não foi possível adicionar o capítulo, verifique os itens enviados e tente novamente.']);
+                }
             } else {
-                DB::delete('delete capitulos where id = ?', $capitulo->id);
+                return back();
             }
             
             
@@ -115,8 +130,12 @@ class CapitulosController extends Controller
         foreach($arquivos as $imagem){
 
             $imagens = new Imagens;        
-            $imagem->storeAs('mangas/'.$mangaNome.'/'.$capituloNome, "/imagem{$numero}.jpg", 'public');
-            $imagens->local = 'mangas/'.$mangaNome.'/'.$capituloNome."/imagem{$numero}.jpg";
+            
+            $imagem->storeAs('mangas/'.$mangaNome.'/'.$capituloNome, 
+            "/imagem{$numero}.{$imagem->getClientOriginalExtension()}",
+             'public');
+
+            $imagens->local = 'mangas/'.$mangaNome.'/'.$capituloNome."/imagem{$numero}.{$imagem->getClientOriginalExtension()}";
             $imagens->idManga = $mangaID;
             $imagens->idCapitulo = $capituloID;
             try {

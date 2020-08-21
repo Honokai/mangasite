@@ -66,7 +66,6 @@ class MangasController extends Controller
         } else {
             
             $manga = new Mangas;
-
             $manga->nome = $request->nome;
             $manga->descricao = $request->descricao;
             $manga->imagem = $imagem;
