@@ -22,7 +22,7 @@ function () {
 */
 Auth::routes();
 
-Route::get('manga/{nome}', 'MangasController@show')->name('manga');
+Route::get('/manga/{nome}', 'MangasController@show')->where('nome','(.*)')->name('manga');
 
 Route::post('/adicionar_manga', 'MangasController@store')->name('am');
 

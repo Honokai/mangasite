@@ -44,7 +44,7 @@ class MangasController extends Controller
      */
     public function store(Request $request)
     {
-        $nome = str_replace(' ', '', $request->nome);
+        $nome = str_replace(' ', '', $request->nomemanga);
         
         Storage::disk('public')->makeDirectory('mangas/'.$nome);
         $request->imagem->storeAs('mangas/'.$nome, 'capa.jpg', 'public');
@@ -53,7 +53,7 @@ class MangasController extends Controller
         $imagem = 'mangas/'.$nome."/capa.jpg";
 
         $regras = array(
-            'nome' => 'required',
+            'nomemanga' => 'required',
             'descricao' => 'required'
         );
 
@@ -66,7 +66,7 @@ class MangasController extends Controller
         } else {
             
             $manga = new Mangas;
-            $manga->nome = $request->nome;
+            $manga->nome = $request->nomemanga;
             $manga->descricao = $request->descricao;
             $manga->imagem = $imagem;
             
@@ -89,7 +89,7 @@ class MangasController extends Controller
         
         $manga = Mangas::where('nome', '=', $nome)->first();
 
-        $capitulos = Capitulos::where('idManga', $manga->id);
+        $capitulos = Capitulos::where('idManga', $manga->id)->get();
 
         return view('manga',['manga'=>$manga, 'capitulos'=>$capitulos]);
     }

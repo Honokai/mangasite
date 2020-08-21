@@ -21,7 +21,7 @@
                 <div class="capitulos">
                 @isset($capitulos)
                     @foreach ($capitulos as $capitulo)
-                        
+                        <a href="#">{{$capitulo->nome}}</a>
                     @endforeach
                 @endisset
                 </div>

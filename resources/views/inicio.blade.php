@@ -35,7 +35,7 @@
                     <div class="card-text">
                         {{$item->descricao}} 
                     </div>
-                    <a href="manga/{{$item->nome}}" class="btn btn-primary">Ler</a>
+                    <a href="{{route('manga',['nome'=>$item->nome])}}" class="btn btn-primary">Ler</a>
                 </div>
             </div>
             @endforeach
