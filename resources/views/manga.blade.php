@@ -21,7 +21,7 @@
                 <div class="capitulos">
                 @isset($capitulos)
                     @foreach ($capitulos as $capitulo)
-                        <a href="#">{{$capitulo->nome}}</a>
+                        <a href="{{route('ler',['manga'=>$manga->nome,'capitulo'=>$capitulo->nome])}}">{{$capitulo->nome}}</a>
                     @endforeach
                 @endisset
                 </div>

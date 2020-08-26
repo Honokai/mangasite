@@ -17,19 +17,6 @@ use PhpParser\Node\Expr\Cast\Array_;
 class CapitulosController extends Controller
 {
     
-    public function painel()
-    {
-        if(Auth::user()->acesso == 1) {
-            
-            $mangas = Mangas::all();
-            
-            return view('painel',['mangas'=>$mangas]);
-
-        } else {
-            return view('inicio');
-        }
-    }
-    
     /**
      * Display a listing of the resource.
      *
@@ -46,8 +33,8 @@ class CapitulosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
+    {   $mangas = Mangas::all();
+        return view('formularios.adicionar_capitulo',['mangas'=> $mangas]);
     }
 
     /**
@@ -193,5 +180,26 @@ class CapitulosController extends Controller
     public function destroy(Capitulos $capitulos)
     {
         //
+    }
+
+    /**
+     * Realiza a busca das imagens atreladas a determinado capítulo
+     * @param String $manga
+     * @param String $capitulo
+     * @return view com coleção de imagens do capitulo e capitulos do manga em questão
+     */
+    public function imagens(String $manga, String $capitulo)
+    {
+        $Manga = Mangas::where('nome','=',$manga)->first(); 
+        
+        $Capitulos = Capitulos::where('idManga','=',$Manga->id)->get();
+        
+        $selecionado = Capitulos::where('nome','=',$capitulo)
+        ->where('idManga','=',$Manga->id)->first();
+        
+        $imagens = Imagens::where('idManga','=', $Manga->id)
+        ->where('idCapitulo','=', $selecionado->id)->get();
+        
+        return view('ler',['imagens'=>$imagens,'Capitulos'=>$Capitulos]);
     }
 }

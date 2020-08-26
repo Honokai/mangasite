@@ -22,12 +22,18 @@ function () {
 */
 Auth::routes();
 
+Route::resource('capitulos', 'CapitulosController'); 
+
+Route::resource('mangas', 'MangasController');
+
 Route::get('/manga/{nome}', 'MangasController@show')->where('nome','(.*)')->name('manga');
+
+Route::get('/ler/{manga}/{capitulo}', 'CapitulosController@imagens')->where('manga','(.*)')->name('ler');
 
 Route::post('/adicionar_manga', 'MangasController@store')->name('am');
 
 Route::post('/adicionar_capitulo', 'CapitulosController@store')->name('adicionar capitulo');
 
-Route::get('/painel', 'CapitulosController@painel')->name('painel');
+Route::get('painel', 'PainelController@painel')->name('painel');
 
 Route::get('/home', 'HomeController@index')->name('home');
