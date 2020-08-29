@@ -22,11 +22,11 @@ function () {
 */
 Auth::routes();
 
-Route::resource('capitulos', 'CapitulosController'); 
+Route::resource('capitulos', 'CapitulosController');
 
-Route::resource('mangas', 'MangasController');
+Route::resource('manga', 'MangasController');
 
-Route::get('/manga/{nome}', 'MangasController@show')->where('nome','(.*)')->name('manga');
+Route::get('/manga/{manga}', 'MangasController@show')->where('manga','(.*)')->name('mangas.show');
 
 Route::get('/ler/{manga}/{capitulo}', 'CapitulosController@imagens')->where('manga','(.*)')->name('ler');
 

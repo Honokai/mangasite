@@ -108,3 +108,31 @@ div.manga-descricao {
 div.col-12.cap h3 {
     text-align: center;
 }
+
+.manga-link-nome {
+    position: absolute;
+    display: block;
+    text-decoration: none; 
+    text-align: center;
+    bottom: 20px; 
+    left: 20px;
+    right: 20px;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.manga-link-nome:hover {
+    text-decoration: none;
+    color: rgb(171, 233, 209);
+}
+
+img.tema {
+    padding-top: 10px;    
+    min-width: 20px;
+    cursor: pointer;
+}
+
+/*--------------- Dark layout --------------------*/
+

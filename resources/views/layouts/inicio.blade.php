@@ -58,6 +58,9 @@
                         <a class="nav-link" href="{{route('login')}}"> Entrar </a>    
                     </li>
                 @endif
+                <li>
+                    <img class='tema' id='TemaSeletor' src="https://image.flaticon.com/icons/svg/702/702471.svg" alt="Tema escuro">
+                </li>
             </ul>
         </div>
     </nav>

@@ -21,8 +21,9 @@ class MangasController extends Controller
     {
         /* */
         $paginacao = Mangas::orderByDesc('atualizado_em')->paginate(9); 
+        $ultimos = Mangas::orderByDesc('atualizado_em')->take(3)->get();
 
-        return view('inicio',['mangas' => $paginacao]);
+        return view('inicio',['mangas' => $paginacao,'atualizados' => $ultimos, 'contador' => 0]);
 
     }
 
