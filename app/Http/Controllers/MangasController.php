@@ -21,8 +21,9 @@ class MangasController extends Controller
     {
         /* */
         $paginacao = Mangas::orderByDesc('atualizado_em')->paginate(9); 
-        //$paginacao = DB::table('mangas')->orderByDesc('atualizado_em')->paginate(0);
-        return view('inicio',['mangas' => $paginacao]);
+        $ultimos = Mangas::orderByDesc('atualizado_em')->take(3)->get();
+
+        return view('inicio',['mangas' => $paginacao,'atualizados' => $ultimos, 'contador' => 0]);
 
     }
 
@@ -33,7 +34,7 @@ class MangasController extends Controller
      */
     public function create()
     {
-
+        return view('formularios.adicionar_manga');
     }
 
     /**
