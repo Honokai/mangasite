@@ -7,8 +7,7 @@ window.addEventListener('load', function(){
         let url = 'http://localhost:8000/'
         if(tema == true){
             
-            this.src = url + 'img/lua.svg'
-            this.style.backgroundColor = 'white'
+            this.src = 'https://www.iconsdb.com/icons/preview/white/moon-4-xxl.png'
             
             console.log(this.src)
             let cartoes = document.querySelectorAll('div.card')
@@ -22,8 +21,7 @@ window.addEventListener('load', function(){
             })
             tema = false
         } else {
-            this.src = url + 'img/lua.svg'
-            this.style.backgroundColor = 'white'
+            this.src = 'https://image.flaticon.com/icons/svg/702/702471.svg'
             
             console.log(this.src)
             let cartoes = document.querySelectorAll('div.card')

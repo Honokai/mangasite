@@ -32,7 +32,7 @@
                     <a class="nav-link" href="#">Lista de mangas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Seus favoritos</a>
+                    <a class="nav-link" href="{{route('favoritos.show',['UsuarioID'=> Auth::user()->id])}}">Seus favoritos</a>
                 </li>
             </ul>
 

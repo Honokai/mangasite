@@ -90,21 +90,37 @@ img.capa {
 }
 
 div.manga-titulo {
-    position: absolute;
-    top: 0;
+    position: relative;
     margin-left: 20px;
-    display: inline;
+    display: block;
     font-size: 31px;
 }
 
 div.manga-descricao {
-    position: absolute;
-    top: 100px;
+    position: relative;
     margin-left: 20px;
-    display: inline;
+    display: block;
     font-size: 31px;
 }
 
+div.botoes {
+    position: relative;
+    margin-left: 20px;
+    display: block;
+    font-size: 31px;
+}
+
+div.aviso-sucesso {
+    display: inline;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    font-size: 20px;
+    background-color: #52c55b;
+    color: white;
+}
+
+/* */
 div.col-12.cap h3 {
     text-align: center;
 }
@@ -131,6 +147,7 @@ div.col-12.cap h3 {
 img.tema {
     padding-top: 10px;    
     min-width: 20px;
+    max-width: 20px;
     cursor: pointer;
 }
 

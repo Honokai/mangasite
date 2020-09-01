@@ -200,6 +200,6 @@ class CapitulosController extends Controller
         $imagens = Imagens::where('idManga','=', $Manga->id)
         ->where('idCapitulo','=', $selecionado->id)->get();
         
-        return view('ler',['imagens'=>$imagens,'Capitulos'=>$Capitulos]);
+        return view('ler',['imagens'=>$imagens,'Capitulos'=>$Capitulos,'lendo' => $selecionado->id]);
     }
 }

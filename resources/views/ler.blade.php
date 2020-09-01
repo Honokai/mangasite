@@ -8,7 +8,11 @@
                 <select class="custom-select" style="max-width: 300px; margin-top:10px; margin-bottom:10px" name="capitulos" id="">
                     <option value=""></option>
                     @foreach ($Capitulos as $capitulo)
-                        <option value="{{$capitulo->id}}">{{$capitulo->nome}}</option>
+                        @if ($capitulo->id == $lendo)
+                            <option selected value="{{$capitulo->id}}">{{$capitulo->nome}}</option>
+                        @else
+                            <option value="{{$capitulo->id}}">{{$capitulo->nome}}</option>
+                        @endif
                     @endforeach
                 </select>
             </div>

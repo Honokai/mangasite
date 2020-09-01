@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Favoritos;
+use App\Mangas;
 use Illuminate\Http\Request;
 
 class FavoritosController extends Controller
@@ -35,7 +36,18 @@ class FavoritosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $favorito = new Favoritos;
+        $favorito->MangaId = $request->manga;
+        $favorito->UsuarioID = $request->usuario;
+        
+        if($favorito->save()){
+            return back()->with('mensagem', "Adicionado aos favoritos");    
+        } else {
+            return back()->withErrors(['Erro','Não foi possível adicionar aos favoritos']);
+        }
+        
+        
+        //return back()->with('mensagem','Incluído a sua lista de favoritos');
     }
 
     /**
@@ -44,9 +56,22 @@ class FavoritosController extends Controller
      * @param  \App\Favoritos  $favoritos
      * @return \Illuminate\Http\Response
      */
-    public function show(Favoritos $favoritos)
+    public function show(Int $usuarioID)
     {
-        //
+        $favoritos = Favoritos::where('UsuarioID','=',$usuarioID)->get();
+        $nomes = array();
+        
+        if(is_null($favoritos)){
+            return back();
+        } else {
+            foreach($favoritos as $index){
+                $manga = Mangas::where('id','=',$index->MangaID)->first();
+                array_push($nomes,$manga->nome);
+            }
+            return view('favoritos', ['favoritos' => $nomes]);
+        }
+
+        
     }
 
     /**

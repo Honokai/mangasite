@@ -1,6 +1,6 @@
 @extends('painel')
 @section('formulario')
-<form action="{{route('mangas.store')}}" method="POST" enctype="multipart/form-data">
+<form action="{{route('manga.store')}}" method="POST" enctype="multipart/form-data">
                     
     <h2>Adicionar manga</h2>
     @csrf

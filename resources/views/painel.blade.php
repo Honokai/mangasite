@@ -7,7 +7,7 @@
             <div class="col-3">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('mangas.create')}}"> Gerenciar mangas </a> 
+                        <a class="nav-link" href="{{route('manga.create')}}"> Gerenciar mangas </a> 
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('capitulos.create')}}">Gerenciar capítulos</a>

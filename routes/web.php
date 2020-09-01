@@ -26,6 +26,10 @@ Route::resource('capitulos', 'CapitulosController');
 
 Route::resource('manga', 'MangasController');
 
+Route::resource('favoritos', 'FavoritosController');
+
+Route::get('favoritos/{UsuarioID}', 'FavoritosController@show')->name('favoritos.show');
+
 Route::get('/manga/{manga}', 'MangasController@show')->where('manga','(.*)')->name('mangas.show');
 
 Route::get('/ler/{manga}/{capitulo}', 'CapitulosController@imagens')->where('manga','(.*)')->name('ler');
