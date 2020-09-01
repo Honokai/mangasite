@@ -13,8 +13,9 @@
     @if (Route::currentRouteName() == 'painel')
         <link rel="stylesheet" href="{{route('inicio')}}/css/select2.min.css">
         <script src="{{route('inicio')}}/js/select2.min.js"></script>
-        <script src="{{route('inicio')}}/js/perso.js"></script>
+        
     @endif
+    <script src="{{route('inicio')}}/js/perso.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -31,7 +32,7 @@
                     <a class="nav-link" href="#">Lista de mangas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Atualizados recentemente</a>
+                    <a class="nav-link" href="#">Seus favoritos</a>
                 </li>
             </ul>
 
