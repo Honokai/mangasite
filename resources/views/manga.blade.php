@@ -32,8 +32,10 @@
                     <form action="{{route('favoritos.store')}}" method="post">
                         @csrf
                         <input hidden type="number" name="manga" value="{{$manga->id}}">
+                        @isset(Auth::user()->id)
                         <input hidden type="text" name="usuario" value="{{Auth::user()->id}}">
                         <button class="btn btn-primary" href="{{route('favoritos.store')}}">Adicionar aos favoritos</button>
+                        @endisset
                     </form>
                 </div>      
             </div>

@@ -7,8 +7,11 @@ use App\Mangas;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Console\Input\Input;
+
+use function GuzzleHttp\Promise\all;
 
 class MangasController extends Controller
 {
@@ -124,12 +127,11 @@ class MangasController extends Controller
      * @param  \App\Mangas  $mangas
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Mangas $mangas)
+    public function destroy($id)
     {
-    
+        $manga = Mangas::find($id);
+        $manga->delete();
         return back();
-        $mangas->delete();
-    
     }
 
     public function formularioRemover()

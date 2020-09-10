@@ -12,6 +12,13 @@ window.addEventListener('load', function(janela){
     }
     //select_manga = document.getElementById('manga')
     //$('#manga').select2();
+    if(document.getElementById('manga')){
+        document.getElementById('manga').addEventListener('change', function(){
+            this.parentElement.action = window.location.href + "/" + this.value
+            console.log(this.parentElement.action)
+        })
+    }
+
     let tema = true //para tema claro = true
     
     document.getElementById('TemaSeletor').addEventListener('click', function(elemento){

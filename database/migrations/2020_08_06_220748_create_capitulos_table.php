@@ -17,7 +17,7 @@ class CreateCapitulosTable extends Migration
             $table->id();
             $table->string('nome')->default('');
             $table->timestamp('data');
-            $table->foreignId('idManga')->constrained('mangas');
+            $table->foreignId('idManga')->constrained('mangas')->onDelete('cascade');
             $table->timestamps();
         });
     }
