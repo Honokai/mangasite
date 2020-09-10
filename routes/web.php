@@ -26,6 +26,8 @@ Route::resource('capitulos', 'CapitulosController');
 
 Route::resource('manga', 'MangasController');
 
+Route::get('manga','MangasController@formularioRemover')->name('manga.formularioRemover');
+
 Route::resource('favoritos', 'FavoritosController');
 
 Route::get('favoritos/{UsuarioID}', 'FavoritosController@show')->name('favoritos.show');

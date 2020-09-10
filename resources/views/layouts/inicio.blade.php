@@ -31,9 +31,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Lista de mangas</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('favoritos.show',['UsuarioID'=> Auth::user()->id])}}">Seus favoritos</a>
-                </li>
+                @if (Auth::user())
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('favoritos.show',['UsuarioID'=> Auth::user()->id])}}">Seus favoritos</a>
+                    </li>    
+                @endif
             </ul>
 
             <ul class="navbar-nav ml-auto">

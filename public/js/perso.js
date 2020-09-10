@@ -1,4 +1,15 @@
-window.addEventListener('load', function(){
+window.addEventListener('load', function(janela){
+    if(document.getElementById('pesquisa')){
+        let pesquisa = document.getElementById('pesquisa')
+        var proximo = pesquisa.nextElementSibling
+        pesquisa.addEventListener('change',function(e){
+            let url = proximo.href.replace("=NOME","=" + this.value)
+            proximo.href = url;
+            console.log(proximo.href)
+        })
+    } else {
+
+    }
     //select_manga = document.getElementById('manga')
     //$('#manga').select2();
     let tema = true //para tema claro = true

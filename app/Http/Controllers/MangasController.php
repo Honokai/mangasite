@@ -126,6 +126,14 @@ class MangasController extends Controller
      */
     public function destroy(Mangas $mangas)
     {
-        //
+    
+        return back();
+        $mangas->delete();
+    
+    }
+
+    public function formularioRemover()
+    {
+        return view('formularios.remover',['mangas' => Mangas::orderBy('nome','asc')->paginate(50)]);
     }
 }
