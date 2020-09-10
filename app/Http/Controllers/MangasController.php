@@ -50,15 +50,10 @@ class MangasController extends Controller
     {
         $nome = str_replace(' ', '', $request->nomemanga);
         
-        Storage::disk('public')->makeDirectory('mangas/'.$nome);
-        $request->imagem->storeAs('mangas/'.$nome, 'capa.jpg', 'public');
-        //Storage::disk('public')->put('mangas/'.$nome."/capa.jpg", $request->imagem);
-
-        $imagem = 'mangas/'.$nome."/capa.jpg";
-
         $regras = array(
             'nomemanga' => 'required',
-            'descricao' => 'required'
+            'descricao' => 'required',
+            'imagem' => 'required|image|mimes:jpeg,png'
         );
 
         $validador = Validator::make($request->all(), $regras);
@@ -68,6 +63,11 @@ class MangasController extends Controller
             return back()->withInput()->withErrors($validador);
 
         } else {
+            Storage::disk('public')->makeDirectory('mangas/'.$nome);
+            $request->imagem->storeAs('mangas/'.$nome, 'capa.jpg', 'public');
+            //Storage::disk('public')->put('mangas/'.$nome."/capa.jpg", $request->imagem);
+
+            $imagem = 'mangas/'.$nome."/capa.jpg";
             
             $manga = new Mangas;
             $manga->nome = $request->nomemanga;

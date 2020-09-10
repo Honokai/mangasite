@@ -7,7 +7,12 @@
 
     <div class="form-group">
         <label for="imagem">Imagem de capa:</label>
-        <input id="imagem" name="imagem" class="form-control-file" type="file" placeholder="Ex.: As crônicas de matsuri">
+        <input id="imagem" name="imagem" class="form-control form-control-file @error('imagem') is-invalid @enderror" value="{{ old('imagem') }}" type="file">
+        @error('imagem')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
     </div>
     <div class="form-group">
         <label for="nomemanga">Nome do manga:</label>

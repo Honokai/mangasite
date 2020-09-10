@@ -18,7 +18,7 @@
     <form action="" method="post">
         @csrf
         @method('delete')
-        <select class="custom-select" name="manga" id="manga">
+        <select name="manga" id="manga" onchange="url(this)">
             <option value=""></option>
             @foreach ($mangas as $item)
             <option value="{{$item->id}}">{{$item->nome}}</option>
@@ -27,13 +27,4 @@
         <button class="btn btn-primary" type="submit">Apagar Mangá</button>
     </form>
     
-    @foreach ($mangas as $item)
-        <form action="{{route('manga.destroy',['manga'=>$item->id])}}" method="post">
-            @method('delete')
-            @csrf
-            <strong> {{$item->nome}} </strong>
-            <button class="btn btn-dark" type="submit">Remover</button>
-        </form>
-    @endforeach
-    {{$mangas->links()}}
 @endsection

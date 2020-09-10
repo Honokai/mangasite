@@ -11,12 +11,19 @@ window.addEventListener('load', function(janela){
 
     }
     //select_manga = document.getElementById('manga')
-    //$('#manga').select2();
+    
     if(document.getElementById('manga')){
+        $('#manga').selectize()
+        /*
+        $('#manga').selectize().on('change', function(){
+            alert("mudanca")
+        })
+
         document.getElementById('manga').addEventListener('change', function(){
             this.parentElement.action = window.location.href + "/" + this.value
             console.log(this.parentElement.action)
         })
+*/
     }
 
     let tema = true //para tema claro = true
@@ -58,3 +65,7 @@ window.addEventListener('load', function(janela){
     })
 })
 
+function url(elemento) {
+    elemento.parentElement.action = window.location.href + "/" + elemento.value
+    console.log(elemento.parentElement.action)
+}
