@@ -67,5 +67,16 @@ window.addEventListener('load', function(janela){
 
 function url(elemento) {
     elemento.parentElement.action = window.location.href + "/" + elemento.value
+    elemento.nextElementSibling.disabled = false
     console.log(elemento.parentElement.action)
+}
+
+function editar(e) {
+    
+    if(e.previousSibling.value != ""){
+        e.href = window.Location.href + '/' + e.previousSibling.value + '/edit'
+        e.click()
+    } else {
+        alert('VAZIO')
+    }
 }

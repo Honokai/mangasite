@@ -85,7 +85,7 @@ class MangasController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Mangas  $mangas
+     * @param  String $nome
      * @return \Illuminate\Http\Response
      */
     public function show($nome)
@@ -101,12 +101,14 @@ class MangasController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Mangas  $mangas
+     * @param  Int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Mangas $mangas)
+    public function edit($id)
     {
-        //
+        $manga = Mangas::findOrFail($id);
+        
+        return view('edit.manga',['manga' => $manga]);
     }
 
     /**
@@ -116,9 +118,13 @@ class MangasController extends Controller
      * @param  \App\Mangas  $mangas
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Mangas $mangas)
+    public function update(Request $request)
     {
-        //
+        $manga = Mangas::findOrFail($request->id);
+        $manga->nome = $request->nome;
+        $manga->descricao = $request->descricao;
+        $manga->save();
+        return back()->with('mensagem', "Atualizado");
     }
 
     /**
@@ -134,8 +140,14 @@ class MangasController extends Controller
         return back();
     }
 
+    public function formEdit()
+    {
+        return view('edit.manga',['mangas' => Mangas::orderBy('nome','asc')->get()]);
+    }
+/*
     public function formularioRemover()
     {
         return view('formularios.remover',['mangas' => Mangas::orderBy('nome','asc')->paginate(50)]);
     }
+*/
 }

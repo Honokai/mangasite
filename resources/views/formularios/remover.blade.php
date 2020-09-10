@@ -1,20 +1,6 @@
 @extends('layouts.inicio')
 
 @section('conteudo')
-<script>
-/*
-    var item = (elemento) => {
-        elemento.parentElement.action = window.location.href + "/" + elemento.value
-        console.log(elemento.parentElement.action)
-
-        return true
-    }
-
-    function item(elemento) {
-        alert('HELLO')
-    }
-*/
-</script>
     <form action="" method="post">
         @csrf
         @method('delete')

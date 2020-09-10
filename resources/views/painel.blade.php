@@ -13,7 +13,7 @@
                         <a class="nav-link" href="{{route('capitulos.create')}}">Adicionar capítulos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('manga.formularioRemover')}}">Remover mangá</a>
+                        <a class="nav-link" href="{{route('manga.formEdit')}}">Remover mangá</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Remover capítulos</a>

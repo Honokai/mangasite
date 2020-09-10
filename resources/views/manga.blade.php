@@ -33,10 +33,13 @@
                         @csrf
                         <input hidden type="number" name="manga" value="{{$manga->id}}">
                         @isset(Auth::user()->id)
-                        <input hidden type="text" name="usuario" value="{{Auth::user()->id}}">
-                        <button class="btn btn-primary" href="{{route('favoritos.store')}}">Adicionar aos favoritos</button>
+                            <input hidden type="text" name="usuario" value="{{Auth::user()->id}}">
+                            <button class="btn btn-primary" href="{{route('favoritos.store')}}">Adicionar aos favoritos</button>
                         @endisset
                     </form>
+                    @if (Auth::user()->acesso == 1)
+                        <a class="btn btn-primary" href="{{route('manga.edit',$manga->id)}}">Editar manga</a>
+                    @endif
                 </div>      
             </div>
         </div>
